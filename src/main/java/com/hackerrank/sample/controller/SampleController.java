@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -81,6 +82,12 @@ public class SampleController {
     private Stream<JSONObject> toStream(JSONArray data) {
         return StreamSupport.stream(data.spliterator(), false) // false => not parallel stream
                 .map(JSONObject.class::cast);
+    }
+
+    @CrossOrigin
+    @GetMapping("/fizzBuzz/{num}")
+    private void fizzBuzz(@PathVariable("num") int num) {
+        IntStream.rangeClosed(1, Integer.valueOf(num)).mapToObj(i->i%3==0?(i%5==0? "FizzBuzz ":"Fizz "):(i%5==0? "Buzz ": i+" ")).forEach(System.out::println);
     }
 
 
